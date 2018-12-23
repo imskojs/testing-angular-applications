@@ -1,25 +1,34 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ContactsComponent } from './contacts.component';
+import { Contact } from './shared/models/contact.model';
 
 describe('ContactsComponent', () => {
   let component: ContactsComponent;
-  let fixture: ComponentFixture<ContactsComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ContactsComponent ]
-    })
-    .compileComponents();
-  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContactsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new ContactsComponent();
   });
 
-  it('should create', () => {
+  it('should set instance correctly', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be no contacts if there is no data', () => {
+    expect(component.contacts.length).toBe(0);
+  });
+
+  it('should be contacts if there is data', () => {
+    const newContact: Contact = {
+      id: 1,
+      name: 'Jason Pipemaker'
+    };
+    const contactsList: Array<Contact> = [newContact];
+    component.contacts = contactsList;
+
+    expect(component.contacts.length).toBe(1);
+  });
+
+
 });
+
+
+
